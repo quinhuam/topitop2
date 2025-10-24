@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 // FIX: Add .tsx/.ts extensions to fix module resolution errors.
 import { useApp } from '../App.tsx';
@@ -5,7 +6,7 @@ import { View } from '../types.ts';
 import { ChevronLeftIcon, InfoIcon, PlusCircleIcon, LandmarkIcon, CreditCardIcon } from './icons';
 
 const CheckoutProgress: React.FC<{ step: 'delivery' | 'payment' }> = ({ step }) => {
-    const isPaymentPage = step === 'payment';
+    const isPayment = step === 'payment';
 
     return (
         <div className="max-w-md mx-auto mb-10">
@@ -16,21 +17,21 @@ const CheckoutProgress: React.FC<{ step: 'delivery' | 'payment' }> = ({ step }) 
                     <p className="text-sm mt-1 font-semibold">Carro</p>
                 </div>
 
-                {/* Line 1-2 */}
-                <div className={`flex-1 h-1 -mx-1 ${isPaymentPage ? 'bg-red-600' : 'bg-black'}`}></div>
+                {/* Line */}
+                <div className={`flex-1 h-1 -mx-1 ${isPayment ? 'bg-red-600' : 'bg-black'}`}></div>
 
                 {/* Step 2 */}
                 <div className="flex flex-col items-center">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold z-10 border-2 ${isPaymentPage ? 'bg-red-600 text-white border-red-600' : 'bg-white text-black border-black'}`}>2</div>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold z-10 border-2 ${isPayment ? 'bg-red-600 text-white border-red-600' : 'bg-white text-black border-black'}`}>2</div>
                     <p className="text-sm mt-1 font-semibold">Entrega</p>
                 </div>
 
-                {/* Line 2-3 */}
-                <div className="flex-1 h-1 -mx-1 bg-black"></div>
+                {/* Line */}
+                <div className={`flex-1 h-1 -mx-1 ${isPayment ? 'bg-red-600' : 'bg-black'}`}></div>
 
                 {/* Step 3 */}
                 <div className="flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold z-10 border-2 bg-white text-black border-black">3</div>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold z-10 border-2 ${isPayment ? 'bg-red-600 text-white border-red-600' : 'bg-white text-black border-black'}`}>3</div>
                     <p className="text-sm mt-1 font-semibold">Pago</p>
                 </div>
             </div>
@@ -152,42 +153,38 @@ const CheckoutPage: React.FC = () => {
 
     const renderPaymentStep = () => (
         <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
-             <div className="flex items-center mb-6">
-                 <button onClick={() => setStep('delivery')} className="p-1 rounded-full hover:bg-gray-100 mr-4">
+            <div className="flex items-center mb-6">
+                 <button onClick={() => setStep('delivery')} className="p-1 rounded-full hover:bg-gray-100">
                     <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
                 </button>
-                <div className="text-center flex-1">
-                    <span className="bg-red-600 text-white font-semibold py-2 px-6 rounded-full text-sm">
-                        Métodos de pago
-                    </span>
-                </div>
+                <h2 className="text-xl font-bold text-gray-800 ml-4">Métodos de pago</h2>
             </div>
 
             <div className="space-y-4">
                 <PaymentOption name="yapeplin" label="Yape / Plin" selected={selectedPayment} onSelect={setSelectedPayment} icons={
                     <>
-                        <img src="https://topitoprepo1-nlqt.vercel.app/assets/yape-B6v_p9y2.png" alt="Yape" className="h-6"/>
-                        <img src="https://topitoprepo1-nlqt.vercel.app/assets/plin-C7W24NlP.png" alt="Plin" className="h-6"/>
+                        <span className="font-bold text-sm text-purple-700 bg-purple-100 px-2 py-1 rounded">yape</span>
+                        <span className="font-bold text-sm text-cyan-700 bg-cyan-100 px-2 py-1 rounded">plin</span>
                     </>
                 }/>
-                 <PaymentOption name="transferencia" label="Transferencia bancaria" selected={selectedPayment} onSelect={setSelectedPayment} icons={<img src="https://topitoprepo1-nlqt.vercel.app/assets/transfer-D_G1aZ4S.png" alt="Transferencia" className="h-8"/>}/>
+                 <PaymentOption name="transferencia" label="Transferencia bancaria" selected={selectedPayment} onSelect={setSelectedPayment} icons={<LandmarkIcon className="w-6 h-6 text-gray-500" />}/>
                  <PaymentOption name="tarjeta" label="Tarjeta débito / crédito" selected={selectedPayment} onSelect={setSelectedPayment} icons={
-                    <div className="flex items-center space-x-1">
-                        <img src="https://topitoprepo1-nlqt.vercel.app/assets/visa-DyM130p6.png" alt="Visa" className="h-6"/>
-                        <img src="https://topitoprepo1-nlqt.vercel.app/assets/mastercard-Dq30154W.png" alt="Mastercard" className="h-6"/>
-                        <img src="https://topitoprepo1-nlqt.vercel.app/assets/amex-C4fPj1Jo.png" alt="American Express" className="h-6"/>
-                    </div>
+                    <>
+                        <span className="font-semibold text-xs border px-1 rounded">VISA</span>
+                        <span className="font-semibold text-xs border px-1 rounded">MasterCard</span>
+                        <span className="font-semibold text-xs border px-1 rounded">AMEX</span>
+                    </>
                 }/>
             </div>
             
             <div className="text-center my-6">
-                <span className="bg-red-600 text-white font-semibold py-2 px-6 rounded-full text-sm">
+                <button className="border-2 border-gray-300 text-gray-700 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition">
                     Otro medio de pago
-                </span>
+                </button>
             </div>
              
             <div className="space-y-4">
-                 <PaymentOption name="linea_credito" label="Línea de crédito" selected={selectedPayment} onSelect={setSelectedPayment} icons={<img src="https://topitoprepo1-nlqt.vercel.app/assets/credito-B4jG3wxs.png" alt="Credito" className="h-8"/>}/>
+                 <PaymentOption name="linea_credito" label="Línea de crédito" selected={selectedPayment} onSelect={setSelectedPayment} icons={<CreditCardIcon className="w-6 h-6 text-gray-500" />}/>
             </div>
         </div>
     );
