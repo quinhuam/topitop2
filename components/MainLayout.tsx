@@ -10,22 +10,12 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isBannerVisible, setIsBannerVisible] = useState(false);
-
-  const toggleBanner = () => {
-    setIsBannerVisible(prev => !prev);
-  }
 
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header setIsOpen={setIsSidebarOpen} toggleBanner={toggleBanner} />
-        {isBannerVisible && (
-          <div className="bg-red-500 text-white text-center p-3 text-sm font-semibold animate-fade-in-down">
-            ¡Envío gratis en todos los pedidos de la Campaña 13!
-          </div>
-        )}
+        <Header setIsOpen={setIsSidebarOpen} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 sm:p-6 lg:p-8">
           {children}
         </main>

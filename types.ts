@@ -55,4 +55,6 @@ export interface AppContextType {
   setSelectedOrder: (order: any | null) => void;
   userData: UserData;
   redeemPrize: (level: number, prizeName: string, pointsCost: number) => void;
+  isSliderVisible: boolean;
+  toggleSliderVisibility: () => void;
 }

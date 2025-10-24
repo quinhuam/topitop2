@@ -1,12 +1,15 @@
 
 
+
 import React from 'react';
 // FIX: Add .tsx/.ts extensions to fix module resolution errors. Note the double .. for path traversal.
 import { useApp } from '../../App.tsx';
 import { View } from '../../types.ts';
-import { ChevronRightIcon, SearchIcon } from '../icons';
+// FIX: Remove unused SearchIcon
+import { ChevronRightIcon } from '../icons';
 
-const OrderRow = ({ order, onSelect }: { order: any, onSelect: (order: any) => void }) => (
+// FIX: Change component definition to use React.FC to fix typing issue with the `key` prop.
+const OrderRow: React.FC<{ order: any, onSelect: (order: any) => void }> = ({ order, onSelect }) => (
     <tr className="border-b hover:bg-gray-50 cursor-pointer" onClick={() => onSelect(order)}>
         <td className="p-4">{order.id}</td>
         <td className="p-4">{order.campaign}</td>

@@ -41,6 +41,8 @@ interface AppContextType {
   setSelectedOrder: (order: any | null) => void;
   userData: UserData;
   redeemPrize: (level: number, prizeName: string, pointsCost: number) => void;
+  isSliderVisible: boolean;
+  toggleSliderVisibility: () => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -60,6 +62,11 @@ const App: React.FC = () => {
   const [activeProductCategory, setActiveProductCategory] = useState<string | null>(null);
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [userData, setUserData] = useState<UserData>({ points: 380, redeemedPrizes: {} });
+  const [isSliderVisible, setIsSliderVisible] = useState(true);
+
+  const toggleSliderVisibility = () => {
+    setIsSliderVisible(prev => !prev);
+  };
 
   const login = () => {
     setIsLoggedIn(true);
@@ -179,6 +186,8 @@ const App: React.FC = () => {
     setSelectedOrder,
     userData,
     redeemPrize,
+    isSliderVisible,
+    toggleSliderVisibility,
   };
 
   return (

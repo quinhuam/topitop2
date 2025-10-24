@@ -58,7 +58,7 @@ const Slider: React.FC = () => {
 
 
 const DashboardPage: React.FC = () => {
-    const { setView, userData } = useApp();
+    const { setView, userData, isSliderVisible } = useApp();
     
     const financialData = {
         creditLine: "S/ 500",
@@ -74,7 +74,7 @@ const DashboardPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <Slider />
+            {isSliderVisible && <Slider />}
             
             <div className="bg-white p-4 rounded-lg shadow-md text-center sm:text-left">
                 <p className="text-lg font-semibold text-gray-800">Hola Mariela, estas en campaña 01</p>

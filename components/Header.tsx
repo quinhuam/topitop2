@@ -7,11 +7,10 @@ import { SearchIcon, BellIcon, MenuIcon, ShoppingCartIcon } from './icons';
 
 interface HeaderProps {
     setIsOpen: (isOpen: boolean) => void;
-    toggleBanner: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ setIsOpen, toggleBanner }) => {
-    const { logout, setView, setActiveProductCategory, cart } = useApp();
+const Header: React.FC<HeaderProps> = ({ setIsOpen }) => {
+    const { logout, setView, setActiveProductCategory, cart, toggleSliderVisibility } = useApp();
     const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const handleNavClick = (category: string) => {
@@ -34,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ setIsOpen, toggleBanner }) => {
                         </button>
                          {/* Desktop Menu/Banner Button */}
                         <button
-                            onClick={toggleBanner}
+                            onClick={toggleSliderVisibility}
                             className="hidden lg:block text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 mr-4"
                         >
                             <MenuIcon className="h-6 w-6" />
